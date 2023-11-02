@@ -1,11 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { bookViewRoute } from "../routes";
+import {useEffect} from "react";
 
 
 const BookItem = ({ book = []}) => {
     let bookName = 'les tres pretendants un mari de victor Hugo je suis'
+
+
     return (
-        <div className="w-72 bg-white rounded-lg shadow-md mb-4 mr-5">
+        <div className="w-72 bg-white rounded-lg mb-4 mr-5">
         <div className="flex flex-col justify-between items-center p-4 w-full">
           <div className="w-full">
             <img className="w-full h-60" src="https://picsum.photos/600/400" alt="Image de livre" />
