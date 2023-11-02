@@ -31,16 +31,18 @@ export default function Header() {
   return (
     <div className={`w-full top-0 py-2 bg-white ${scrollY > 400 && 'sticky transition duration-500 shadow-xl'}`}>
         <div className='flex items-center justify-between px-8'>
-            <NavLink to={root} className='w-96'>
+            <NavLink to={root} className='w-full lg:w-96'>
                 <img className='w-20' src={logo} alt="" />
             </NavLink>
             {/* menu */}
             <div className='w-full'>
 
                 <div className='flex flex-row items-center justify-between'>
-                    <NavLink to={root}>Accueil</NavLink>
-                    <NavLink>Catalogue</NavLink>
-                    <NavLink>Sélections</NavLink>
+                    <div className='hidden lg:flex justify-between items-center flex-row w-full mr-5'>
+                        <NavLink to={root}>Accueil</NavLink>
+                        <NavLink>Catalogue</NavLink>
+                        <NavLink>Sélections</NavLink>
+                    </div>
 
                    <div className='flex mr-5'>
                        <div className='flex p-1 w-[7.5rem] bg-black cursor-pointer items-center rounded text-white/80'>
@@ -64,7 +66,7 @@ export default function Header() {
                    </div>
                 </div>
             </div>
-            <form className='w-full' onSubmit={submit}>
+            <form className='w-full hidden lg:block' onSubmit={submit}>
                 <input 
                     onChange={(e) => setQuery(e.target.value)}
                     type="text" 
