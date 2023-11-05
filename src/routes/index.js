@@ -1,3 +1,9 @@
 export const root = '/';
 export const bookViewRoute = '/item/:bookName';
-export const searchLink = '/search'
+export const searchLink = '/search';
+export const libraryLInk = '/user/library';
+export const loginLink = '/user/login';
+export const signupLink = '/user/signup'
+export const profileLink = '/user/profile';
+export const profileEditLink = '/user/edit';
+export const userEditPasswordLink = '/user/edit_password';

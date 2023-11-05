@@ -8,7 +8,7 @@ export default function Footer() {
         <div className='max-w-4xl mx-auto p-5'>
             <div className='grid lg:grid-cols-3 gap-5'>
                 <div className='flex flex-col bg-slate/5 p-4'>
-                    <h2 className=' text-purple font-bold text-4xl'>Rapek Novel</h2>
+                    <h2 className=' text-purple font-bold text-4xl'>Rabipek Novel</h2>
                     <p className=' text-slate font-medium'>Voyage dans un monde de passion enchantée</p>
                 </div>
                 <div>

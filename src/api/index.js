@@ -1,6 +1,11 @@
 // create a function to manage call API
 import axios from "axios";
 
+export const clientID =  '745116190150-p92t33q3rvmhepvmb251p7nula1g7gif.apps.googleusercontent.com';
+export const secretID = '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';
+
+export const googleLocalToken = localStorage.getItem('googleToken');
+
 /**
  * Makes an API call to the specified endpoint with the given parameters.
  *

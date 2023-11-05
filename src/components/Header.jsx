@@ -38,32 +38,37 @@ export default function Header() {
             <div className='w-full'>
 
                 <div className='flex flex-row items-center justify-between'>
-                    <div className='hidden lg:flex justify-between items-center flex-row w-full mr-5'>
+                    <div className={`hidden lg:flex justify-between items-center flex-row w-1/2 mr-5 ${scrollY > 400 && 'w-full'}`}>
                         <NavLink to={root}>Accueil</NavLink>
                         <NavLink>Catalogue</NavLink>
                         <NavLink>Sélections</NavLink>
                     </div>
 
-                   <div className='flex mr-5'>
-                       <div className='flex p-1 w-[7.5rem] bg-black cursor-pointer items-center rounded text-white/80'>
-                           <div className='mr-1'>
-                               <img className='w-6' src={playLogo} alt="" />
-                           </div>
-                           <div className='flex flex-col'>
-                               <span className='text-[0.6rem] -tracking-wider uppercase'>disponible sur</span>
-                               <span className=' font-bold text-sm'>Google Play</span>
-                           </div>
-                       </div>
-                       <div className='flex p-1 w-[7.5rem] bg-black cursor-pointer items-center rounded text-white/80 ml-2'>
-                           <div className='mr-1'>
-                               <img className='w-6' src={appleLogo} alt="" />
-                           </div>
-                           <div className='flex flex-col'>
-                               <span className='text-[0.6rem] -tracking-wider'>Télécharger dans</span>
-                               <span className=' font-bold text-sm'>l'App Store</span>
-                           </div>
-                       </div>
-                   </div>
+                    {
+                        scrollY > 400 && (
+                            <div className='flex mr-5'>
+                                <div className='flex p-1 w-[7.5rem] bg-black cursor-pointer items-center rounded text-white/80'>
+                                    <div className='mr-1'>
+                                        <img className='w-6' src={playLogo} alt="" />
+                                    </div>
+                                    <div className='flex flex-col'>
+                                        <span className='text-[0.6rem] -tracking-wider uppercase'>disponible sur</span>
+                                        <span className=' font-bold text-sm'>Google Play</span>
+                                    </div>
+                                </div>
+                                <div className='flex p-1 w-[7.5rem] bg-black cursor-pointer items-center rounded text-white/80 ml-2'>
+                                    <div className='mr-1'>
+                                        <img className='w-6' src={appleLogo} alt="" />
+                                    </div>
+                                    <div className='flex flex-col'>
+                                        <span className='text-[0.6rem] -tracking-wider'>Télécharger dans</span>
+                                        <span className=' font-bold text-sm'>l'App Store</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
+
                 </div>
             </div>
             <form className='w-full hidden lg:block' onSubmit={submit}>
