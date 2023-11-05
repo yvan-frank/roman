@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import TopBar from "../../components/TopBar.jsx";
 import Header from "../../components/Header.jsx";
 import {NavLink} from "react-router-dom";
@@ -6,23 +6,37 @@ import {BsThreeDotsVertical} from "react-icons/bs";
 import {profileEditLink, userEditPasswordLink} from "../../routes/index.js";
 import useAuth from "../../hooks/useAuth.js";
 import {jwtDecode} from "jwt-decode";
+import MobileUser from "../../components/MobileUser.jsx";
+import Footer from "../../components/Footer.jsx";
 
 const ProfilePage = () => {
 	const [user, setUser] = useState({});
 	const [open, setOpen] = useState(false);
 	const {auth} = useAuth()
+	const divRef = useRef(null);
 	useEffect(() => {
 		let userDecode = jwtDecode(auth.googleToken)
 		setUser(userDecode)
 	}, []);
+	useEffect(() => {
+		if (divRef.current) {
+			divRef.current.addEventListener("click", () => {
+				// Do something
+				setOpen(false)
+			});
+		}
+	}, []);
+
+	const [openNav, setOpenNav] = useState(false);
 
 	return (
 		<div>
+			<MobileUser openNav={openNav} setOpenNav={() => setOpenNav(!openNav)} />
 			<TopBar />
-			<Header />
-			<div className='h-screen flex flex-col overflow-hidden px-5 lg:px-0'>
+			<Header open={openNav} setOpen={setOpenNav} />
+			<div className='h-screen flex flex-col overflow-hidden px-5 lg:px-0' ref={divRef}>
 				<div className='flex justify-around items-center w-full mt-20'>
-					<h1 className='font-bold lg:text-6xl'>Profil d'utilisateur</h1>
+					<h1 className='font-bold md:text-6xl'>Profil d'utilisateur</h1>
 					<div className='p-3 rounded relative w-96'>
 						<button
 							onClick={() => setOpen(!open)}
@@ -55,6 +69,7 @@ const ProfilePage = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</div>
 	);
 };

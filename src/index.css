@@ -17,7 +17,6 @@
     align-items: center;
     align-content: center;
     justify-content: center;
-    z-index: auto;
 }
 .loader__element {
     border-radius: 100%;

@@ -1,6 +1,8 @@
 // create a function to manage call API
 import axios from "axios";
-
+import gif from "../assets/Rabipek Novel.gif"
+//export image
+export const placeHolderImage = gif
 export const clientID =  '745116190150-p92t33q3rvmhepvmb251p7nula1g7gif.apps.googleusercontent.com';
 export const secretID = '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';
 

@@ -11,13 +11,13 @@ export default function TopBar() {
     //console.log(auth)
     const logout = () => {
         setAuth({})
-        console.log(auth)
-        console.log("logout")
+        //console.log(auth)
+        //console.log("logout")
         localStorage.removeItem('googleToken')
         window.location.reload()
     }
   return (
-    <div className='bg-purple p-3'>
+    <div className='bg-purple p-3 hidden lg:block'>
         <div className='flex justify-end items-center'>
             {
                 auth?.googleToken?.length > 0 ?

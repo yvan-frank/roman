@@ -14,9 +14,9 @@ export default function BookViewPage() {
         <TopBar />
         <Header />
      <div className='max-w-7xl mx-auto lg:p-2 px-4 overflow-hidden'>
-        <div className='w-full block lg:flex'>
+        <div className='w-full block lg:flex mt-20'>
             <div className='lg:w-1/4 flex flex-col lg:mr-5'>
-                <img class="w-full h-auto" src="https://picsum.photos/600/400" alt="Image de livre" />
+                <img className="w-full h-auto" src="https://picsum.photos/600/400" alt="Image de livre" />
                 <a className='mt-5 p-2 border-2 rounded border-slate/20 text-center font-bold uppercase hover:bg-yellow
                 cursor-pointer duration-150 hover:text-white hover:border-yellow'>
                     Lire l'extrait en ligne

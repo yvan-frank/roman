@@ -6,7 +6,7 @@ import appleLogo from "../assets/apple.png";
 const Hero = () => {
 	return (
 		<div className='w-full bg-slate p-2 lg:p-10 lg:px-32 flex flex-col lg:flex-row text-white justify-between items-center
-		animate-fade-in-out relative overflow-hidden'>
+		relative overflow-hidden -z-10'>
 			<img src={marketing} alt="" className='w-44 lg:w-52' />
 			<div className='mx-5 lg:mx-10'>
 				<h3 className='font-bold text-6xl'>Rabipek Novel</h3>

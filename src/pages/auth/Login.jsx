@@ -1,19 +1,22 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import TopBar from "../../components/TopBar.jsx";
 import Header from "../../components/Header.jsx";
 import {NavLink, useNavigate} from "react-router-dom";
 import logoGoogle from "../../assets/google.png"
-import {root, signupLink} from "../../routes/index.js";
+import {profileLink, root, signupLink} from "../../routes/index.js";
 import {jwtDecode} from "jwt-decode";
 import {clientID} from "../../api/index.js";
 import useAuth from "../../hooks/useAuth.js";
+import Loading from "../../components/Loading.jsx";
 
 const LoginPage = () => {
 
 	const navigate = useNavigate()
 	const {setAuth} = useAuth()
+	const [loading, setLoading] = useState(false);
 
 	const handleCbResponse = (response) => {
+		setLoading(true)
 		//console.log(response)
 		//console.log("encoded JWT ID Token : ", response.credential);
 		let userObject = jwtDecode(response.credential)
@@ -21,7 +24,7 @@ const LoginPage = () => {
 		//console.log(userObject)
 		localStorage.setItem('googleToken', response.credential)
 		setTimeout(() => {
-			navigate(root)
+			navigate(profileLink)
 		}, 3000)
 	}
 
@@ -80,6 +83,12 @@ const LoginPage = () => {
 							<span className='mx-5'>ou</span>
 							<div className='border w-full border-slate/50' />
 						</div>
+						{
+							loading &&
+							<div className='flex justify-center'>
+								<Loading />
+							</div>
+						}
 						{/*<button*/}
 						{/*	className='w-full p-2 border border-slate/50 rounded flex items-center justify-center mt-5 hover:bg-slate/10 duration-300 transition'*/}
 						{/*>*/}

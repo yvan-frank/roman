@@ -5,16 +5,20 @@ import TopBar from '../../components/TopBar'
 import Footer from '../../components/Footer'
 import Loading from "../../components/Loading.jsx";
 import Hero from "../../components/Hero.jsx";
+import MobileUser from "../../components/MobileUser.jsx";
 
 export default function HomePage() {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [openNav, setOpenNav] = useState(false);
     return (
     <>
+        <MobileUser openNav={openNav} setOpenNav={() => setOpenNav(!openNav)} />
         <TopBar />
-        <Header />
+        <Header open={openNav} setOpen={setOpenNav} />
+
         <Hero />
-        <div className=' max-w-7xl mx-auto px-4'>
+        <div className=' max-w-7xl mx-auto px-4 overflow-hidden'>
             {
                 loading &&
                 <div className='flex justify-center items-center mt-10'>
