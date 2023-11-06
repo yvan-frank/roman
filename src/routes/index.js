@@ -1,6 +1,13 @@
 export const root = '/';
-export const bookViewRoute = '/item/:bookName';
-export const searchLink = '/search';
+export const bookViewRoute = '/list/:bookName';
+export const searchLink = '/recherche';
+export const cartLink = '/panier';
+export const checkoutLink = '/checkout';
+export const aboutLink = '/qui-sommes-nous';
+export const politicLink = '/politique-de-confidentialite';
+export const cgvLink = '/conditions-generales-de-vente';
+export const contactLink = '/contactez-nous';
+export const mentionLink = '/mentions-legales';
 export const libraryLInk = '/user/library';
 export const loginLink = '/user/login';
 export const signupLink = '/user/signup'

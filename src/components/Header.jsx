@@ -6,6 +6,7 @@ import playLogo from "../assets/playstore.png";
 import appleLogo from "../assets/apple.png";
 import {AiOutlineClose, AiOutlineMenu, AiOutlineSearch} from "react-icons/ai";
 import useAuth from "../hooks/useAuth.js";
+import {BsFillCartCheckFill} from "react-icons/bs";
 
 export default function Header({open, setOpen}) {
     const [query, setQuery] = useState('')
@@ -80,17 +81,17 @@ export default function Header({open, setOpen}) {
             </NavLink>
         </div>
         <div className={`w-full top-0 py-2 bg-white z-40 ${scrollY > 400 && 'sticky transition duration-500 shadow-xl'}`}>
-            <div className='flex items-center justify-between px-8'>
+            <div className='flex items-center justify-between px-8 w-full'>
                 <NavLink to={root} className='w-full lg:w-96 hidden lg:block'>
                     <img className='w-20' src={logo} alt="" />
                 </NavLink>
-                <form className='w-full inline-flex items-center relative lg:hidden' onSubmit={submit}>
+                <form className='w-full bg-slate flex items-center relative lg:hidden' onSubmit={submit}>
                     <AiOutlineSearch className='absolute left-0 h-6 w-6' />
                     <input
                         onChange={(e) => setQuery(e.target.value)}
                         type="text"
                         placeholder='Rechercher un livre'
-                        className='pl-8 border-b p-3 bg-white outline-none '
+                        className='pl-8 border-b p-3 bg-white outline-none w-full'
                     />
 
                 </form>
@@ -104,14 +105,14 @@ export default function Header({open, setOpen}) {
                             <NavLink className='mx-3'>Sélections</NavLink>
                         </div>
 
-                        <div className={` mr-5 ${scrollY > 400 ? 'flex' : 'hidden'}`}>
+                        <div className={`hidden mr-5 ${scrollY > 400 ? 'hidden lg:flex' : 'hidden'}`}>
                             <div className='flex p-1 w-[7.5rem] bg-black cursor-pointer items-center rounded text-white/80'>
                                 <div className='mr-1'>
                                     <img className='w-6' src={playLogo} alt="" />
                                 </div>
                                 <div className='flex flex-col'>
                                     <span className='text-[0.6rem] -tracking-wider uppercase'>disponible sur</span>
-                                    <span className=' font-bold text-sm'>Google Play</span>
+                                    <span className=' font-bold text-xs'>Google Play</span>
                                 </div>
                             </div>
                             <div className='flex p-1 w-[7.5rem] bg-black cursor-pointer items-center rounded text-white/80 ml-2'>
@@ -135,6 +136,10 @@ export default function Header({open, setOpen}) {
                         className=' w-full border p-3 rounded-full'
                     />
                 </form>
+                <button>
+                    <BsFillCartCheckFill className='w-8 h-8 mx-5 border border-purple text-purple rounded p-1
+                    hover:bg-purple hover:text-white transition duration-150' />
+                </button>
                 <div className='block lg:hidden'>
                     {
                         open ? <AiOutlineClose className='w-10 h-10 text-purple/20' />

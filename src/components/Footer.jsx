@@ -1,38 +1,78 @@
 import React from 'react'
 import appleLogo from '../assets/apple.png'
 import playLogo from '../assets/playstore.png'
+import {
+    aboutLink,
+    cartLink,
+    cgvLink,
+    contactLink,
+    mentionLink,
+    politicLink,
+    profileLink,
+    root
+} from "../routes/index.js";
+import logo from "../assets/logo rapid.jpg";
+import {NavLink} from "react-router-dom";
 
 export default function Footer() {
   return (
-    <div className='border-t border-slate/20 mt-20'>
+    <footer className='border-t border-slate/20 mt-20 bg-slate text-white'>
         <div className='max-w-4xl mx-auto p-5'>
             <div className='grid lg:grid-cols-3 gap-5'>
                 <div className='flex flex-col bg-slate/5 p-4'>
-                    <h2 className=' text-purple font-bold text-4xl'>Rabipek Novel</h2>
-                    <p className=' text-slate font-medium'>Voyage dans un monde de passion enchantée</p>
+                    <NavLink to={root}>
+                        <img className='w-32 h-32' src={logo} alt="Rabipek Novel" />
+                    </NavLink>
                 </div>
-                <div>
-                    <div className='flex p-1 w-[7.5rem] bg-black cursor-pointer items-center rounded text-white/80'>
-                        <div className='mr-1'>
-                            <img className='w-6' src={playLogo} alt="" />
-                        </div>
-                        <div className='flex flex-col'>
-                            <span className='text-[0.6rem] -tracking-wider uppercase'>disponible sur</span>
-                            <span className=' font-bold text-sm'>Google Play</span>
-                        </div>
-                    </div>
-                    <div className='flex p-1 w-[7.5rem] bg-black cursor-pointer items-center rounded text-white/80 mt-2'>
-                        <div className='mr-1'>
-                            <img className='w-6' src={appleLogo} alt="" />
-                        </div>
-                        <div className='flex flex-col'>
-                            <span className='text-[0.6rem] -tracking-wider'>Télécharger dans</span>
-                            <span className=' font-bold text-sm'>l'App Store</span>
-                        </div>
-                    </div>
+
+                <div className='flex flex-col'>
+                    <NavLink
+                        className='my-1 hover:bg-purple/5 p-2 text-sm'
+                        to={aboutLink}
+                    >
+                        Qui sommes-nous ?
+                    </NavLink>
+                    <NavLink
+                        className='my-1 hover:bg-purple/5 p-2 text-sm'
+                        to={mentionLink}
+                    >
+                        Mentions légales
+                    </NavLink>
+                    <NavLink
+                        className='my-1 hover:bg-purple/5 p-2 text-sm'
+                        to={politicLink}
+                    >
+                        Politique de confidentialité
+                    </NavLink>
+                    <NavLink
+                        className='my-1 hover:bg-purple/5 p-2 text-sm'
+                        to={cgvLink}
+                    >
+                        Conditions générales de vente
+                    </NavLink>
+                    <NavLink
+                        className='my-1 hover:bg-purple/5 p-2 text-sm'
+                        to={contactLink}
+                    >
+                        Contactez-nous
+                    </NavLink>
+                </div>
+                <div className='flex flex-col'>
+                    <NavLink
+                        className='my-1 hover:bg-purple/5 p-2 text-sm'
+                        to={profileLink}
+                    >
+                        Mon compte
+                    </NavLink>
+                    <NavLink
+                        className='my-1 hover:bg-purple/5 p-2 text-sm'
+                        to={cartLink}
+                    >
+                       Panier
+                    </NavLink>
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
   )
 }
