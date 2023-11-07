@@ -5,7 +5,7 @@ const Head = ({pageTitle,title, url, description, image, keywords, author}) => {
 	return (
 		<Helmet>
 			{/* Placez ici vos méta données */}
-			{/*<title> {title} </title>*/}
+			<title> {title} </title>
 			<meta name="description" content={description} />
 			<meta name="keywords" content={keywords} />
 			<meta name="author" content={author} />

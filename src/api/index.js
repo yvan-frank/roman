@@ -8,18 +8,38 @@ export const secretID = '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';
 
 export const googleLocalToken = localStorage.getItem('googleToken');
 
-/**
- * Makes an API call to the specified endpoint with the given parameters.
- *
- * @param {string} endpoint - The URL of the API endpoint.
- * @param {object} params - Optional parameters to include in the API call.
- * @return {object} The data returned from the API call.
- */
-const apiCall = async (endpoint, params) => {
+const baseUrl = 'http://exemple/api'
+
+//user endpoints
+const loginEndpoint = `${baseUrl}/login`
+const logoutEndpoint = `${baseUrl}/logout`
+const registerEndpoint = `${baseUrl}/register`
+
+// book endpoints
+const bookListEndpoint = `${baseUrl}/book-list?page=1`
+const bookDetailEndpoint = `${baseUrl}/book-detail`
+const categoryEndpoint = `${baseUrl}/category-list`
+
+// cart endpoints
+const addToCartEndpoint = `${baseUrl}/add-to-cart`
+const removeFromCartEndpoint = `${baseUrl}/remove-from-cart`
+const myCartListEndpoint = `${baseUrl}/user-cart`
+const userWishListEndpoint = `${baseUrl}/user-wishlist-book`
+
+// other endpoints
+const searchBookEndpoint = `${baseUrl}/book-detail`
+
+
+
+
+const apiCall = async (endpoint, method, params, authorization) => {
 	const options = {
-		method: 'GET',
+		method: method,
 		url: endpoint,
-		params: params? params: {}
+		params: params? params: {},
+		headers: {
+			Authorization: authorization
+		}
 	}
 	try {
 		const response = await axios.request(options);
@@ -30,6 +50,49 @@ const apiCall = async (endpoint, params) => {
 	}
 }
 
-export const fetchBook = async (id) => {
-	return await apiCall(`https://www.googleapis.com/books/v1/volumes/${id}`);
+//login
+export const loginUser = async (data) => {
+	return await apiCall(loginEndpoint, 'POST', data)
+}
+
+//logout
+export const logoutUser = async (authorization) => {
+	return await apiCall(logoutEndpoint, "POST", {}, authorization)
+}
+
+// register user
+export const fetchRegister = async (data) => {
+	return await apiCall(registerEndpoint, "POST", data)
+}
+
+//fetch books
+export const fetchBooks = async () => {
+	return await apiCall(bookListEndpoint, 'GET');
+}
+
+export const fetchBookDetails = async (data) => {
+	return await apiCall(bookDetailEndpoint, "POST", data)
+}
+
+export const fetchCategoryList = async () => {
+	return apiCall(categoryEndpoint, "GET")
+}
+
+// add to cart
+export const fetchAddToCart = async (data, authorization) => {
+	return await apiCall(addToCartEndpoint, "POST", data, authorization)
+}
+
+export const removeFromCart = async (data, authorization) => {
+	return await apiCall(removeFromCartEndpoint, "POST", data, authorization)
+}
+export const fetchCartWishlist = async () => {
+	return await apiCall(myCartListEndpoint, "GET")
+}
+export const fetchUserCartWishlist = async (authorization) => {
+	return await apiCall(userWishListEndpoint, "GET", authorization)
+}
+
+export const fetchSearch = async (data) => {
+	return await apiCall(searchBookEndpoint, "POST", data)
 }

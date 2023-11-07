@@ -6,6 +6,7 @@ import Footer from '../../components/Footer'
 import Loading from "../../components/Loading.jsx";
 import Hero from "../../components/Hero.jsx";
 import MobileUser from "../../components/MobileUser.jsx";
+import Head from "../../components/Head.jsx";
 
 export default function HomePage() {
     const [results, setResults] = useState([]);
@@ -13,6 +14,11 @@ export default function HomePage() {
     const [openNav, setOpenNav] = useState(false);
     return (
     <>
+        <Head
+            title='Rabipek Novel - Voyage dans un monde de passion enchantée'
+            description='Rabipek Novel est une plateforme de lecture de roman'
+            url={window.location.href}
+        />
         <MobileUser openNav={openNav} setOpenNav={() => setOpenNav(!openNav)} />
         <TopBar />
         <Header open={openNav} setOpen={setOpenNav} />
