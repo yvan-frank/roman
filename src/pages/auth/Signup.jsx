@@ -6,12 +6,21 @@ import {clientID} from "../../api/index.js";
 import {jwtDecode} from "jwt-decode";
 import auth from "../../hooks/auth.jsx";
 import useAuth from "../../hooks/useAuth.js";
+import {useForm} from "react-hook-form";
 
 const SignupPage = () => {
 
 	const {auth, setAuth} = useAuth()
 	const navigate = useNavigate()
+	const {
+		handleSubmit,
+		formState: {errors},
+		register,
+		watch
+	} = useForm()
 
+	const password = watch('password')
+	//console.log(password)
 	const handleCbResponse = (response) => {
 		let userObject = jwtDecode(response.credential)
 		setAuth({googleToken: response.credential, userDecode: userObject})
@@ -21,7 +30,6 @@ const SignupPage = () => {
 			navigate(profileLink)
 		}, 3000)
 	}
-
 	useEffect(() => {
 		google.accounts.id.initialize({
 			client_id: clientID,
@@ -34,7 +42,9 @@ const SignupPage = () => {
 		)
 	}, []);
 
-
+	const submit = (data) => {
+		console.log(data)
+	}
 
 	return (
 		<div>
@@ -44,22 +54,57 @@ const SignupPage = () => {
 					<p className='text-center mt-5'>Voyage dans un monde de passion enchantée</p>
 				</div>
 				<form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-96 mt-10"
-					onSubmit={(e) => e.preventDefault()}
+					onSubmit={handleSubmit(submit)}
 				>
 					<div className="mb-2">
 						{/*<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">*/}
 						{/*	Adresse électronique*/}
 						{/*</label>*/}
 						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
-						focus:shadow-outline" id="username" type="text" placeholder="Adresse électronique" />
+						focus:shadow-outline" id="username" type="text" placeholder="Pseudo"
+						       {...register('username', {
+								   required: true
+						       })}
+						/>
+						<p className="text-red-500 text-xs italic">{errors?.username?.type === 'required' && "Requis"}</p>
+					</div>
+					<div className="mb-2">
+						{/*<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">*/}
+						{/*	Adresse électronique*/}
+						{/*</label>*/}
+						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
+						focus:shadow-outline" id="name" type="text" placeholder="Nom"
+						       {...register('name', {
+								   required: true
+						       })}
+						/>
+						<p className="text-red-500 text-xs italic">{errors?.name?.type === 'required' && "Requis"}</p>
+					</div>
+					<div className="mb-2">
+						{/*<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">*/}
+						{/*	Adresse électronique*/}
+						{/*</label>*/}
+						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
+						focus:shadow-outline" id="email" type="email" placeholder="Adresse électronique"
+						       {...register('email', {
+								   required: true,
+							       pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+						       })}
+						/>
+						<p className="text-red-500 text-xs italic">{errors?.email?.type === 'required' && "Requis"}</p>
+						<p className="text-red-500 text-xs italic">{errors?.email?.type === 'pattern' && "Entrer une adresse mail valide"}</p>
 					</div>
 					<div className="mb-2">
 						{/*<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">*/}
 						{/*	Mot de passe*/}
 						{/*</label>*/}
 						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
-						focus:shadow-outline" id="password" type="password" placeholder="Mot de passe" />
-						{/*<p className="text-red-500 text-xs italic">Please choose a password.</p>*/}
+						focus:shadow-outline"  type="password" placeholder="Mot de passe"
+						       {...register('password', {
+								   required: true
+						       })}
+						/>
+						<p className="text-red-500 text-xs italic">{errors?.password?.type === 'required' && "Requis"}</p>
 
 					</div>
 					<div className="mb-2">
@@ -67,8 +112,30 @@ const SignupPage = () => {
 						{/*	Confirmer votre mot de passe*/}
 						{/*</label>*/}
 						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
-						focus:shadow-outline" id="password" type="password" placeholder="Mot de passe" />
-						{/*<p className="text-red-500 text-xs italic">Please choose a password.</p>*/}
+						focus:shadow-outline" type="password" placeholder="Mot de passe"
+						       {...register('cPassword', {
+								   required: true,
+							       validate: (val) => {
+									   if (val !== password){
+										   return 'Les mots de passe ne sont pas identiques'
+									   }
+							       }
+						       })}
+						/>
+						<p className="text-red-500 text-xs italic">{errors?.cPassword?.type === "validate" && errors?.cPassword?.message}</p>
+						<p className="text-red-500 text-xs italic">{errors?.cPassword?.type === 'required' && "Requis"}</p>
+					</div>
+					<div className="mb-2">
+						{/*<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">*/}
+						{/*	Mot de passe*/}
+						{/*</label>*/}
+						<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
+						focus:shadow-outline" id="telephone" type="tel" placeholder="Téléphone"
+						       {...register('contact_number', {
+							       required: true
+						       })}
+						/>
+						<p className="text-red-500 text-xs italic">{errors?.contact_number?.type === 'required' && "Requis"}</p>
 
 					</div>
 					<div className="flex items-center justify-between mt-5">
