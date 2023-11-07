@@ -9,6 +9,7 @@ import {clientID} from "../../api/index.js";
 import useAuth from "../../hooks/useAuth.js";
 import Loading from "../../components/Loading.jsx";
 import {useForm} from "react-hook-form";
+import Head from "../../components/Head.jsx";
 
 const LoginPage = () => {
 
@@ -54,8 +55,12 @@ const LoginPage = () => {
 	}, []);
 	return (
 		<div>
-			{/*<TopBar />*/}
-			{/*<Header />*/}
+			<Head
+				pageTitle='Login'
+				title='Se connecter | Rabipek Novel'
+				description='Connectez-vous sur Rabipek Novel et commencez à lire'
+				url={window.location.href}
+			/>
 			<div className='flex justify-center items-center flex-col min-h-screen'>
 				<div>
 					<h3 className='font-bold text-6xl text-purple'>Rabipek Novel</h3>

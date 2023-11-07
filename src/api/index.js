@@ -32,12 +32,14 @@ const searchBookEndpoint = `${baseUrl}/book-detail`
 
 
 
-const apiCall = async (endpoint, method, params, authorization) => {
+const apiCall = async (endpoint, method, data, authorization) => {
 	const options = {
 		method: method,
 		url: endpoint,
-		params: params? params: {},
+		data: data? data: {},
+		// params: params? params: {},
 		headers: {
+			'Content-Type': 'application/json',
 			Authorization: authorization
 		}
 	}

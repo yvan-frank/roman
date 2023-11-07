@@ -2,11 +2,12 @@ import React, {useEffect} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
 import {profileLink, root, signupLink} from "../../routes/index.js";
 import logoGoogle from "../../assets/google.png";
-import {clientID} from "../../api/index.js";
+import {clientID, fetchRegister} from "../../api/index.js";
 import {jwtDecode} from "jwt-decode";
 import auth from "../../hooks/auth.jsx";
 import useAuth from "../../hooks/useAuth.js";
 import {useForm} from "react-hook-form";
+import Head from "../../components/Head.jsx";
 
 const SignupPage = () => {
 
@@ -42,12 +43,20 @@ const SignupPage = () => {
 		)
 	}, []);
 
-	const submit = (data) => {
+	const submit = async (data) => {
 		console.log(data)
+		const result = await fetchRegister(data)
+		console.log(result)
 	}
 
 	return (
 		<div>
+			<Head
+				pageTitle='Login'
+				title='Inscrivez-vous | Rabipek Novel'
+				description='Inscrivez-vous  sur Rabipek Novel et commencez à lire'
+				url={window.location.href}
+			/>
 			<div className='flex justify-center items-center flex-col min-h-screen'>
 				<div>
 					<h3 className='font-bold text-6xl text-purple'>Rabipek Novel</h3>
