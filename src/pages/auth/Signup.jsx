@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
-import {profileLink, root, signupLink} from "../../routes/index.js";
+import {profileLink, root} from "../../routes/index.js";
 import logoGoogle from "../../assets/google.png";
 import {clientID, fetchRegister} from "../../api/index.js";
 import {jwtDecode} from "jwt-decode";
-import auth from "../../hooks/auth.jsx";
 import useAuth from "../../hooks/useAuth.js";
 import {useForm} from "react-hook-form";
 import Head from "../../components/Head.jsx";
