@@ -1,14 +1,18 @@
 import React, {useEffect} from 'react';
 import GeneralHeader from "../../components/index.jsx";
+import Footer from "../../components/Footer.jsx";
 
 const CvgPage = () => {
 	useEffect(() => {
 		document.title = "Conditions générales de vente";
 	}, []);
 	return (
-		<GeneralHeader>
-			<div className='h-screen'></div>
-		</GeneralHeader>
+		<>
+			<GeneralHeader title='Conditions génrales de vente'>
+
+			</GeneralHeader>
+			<Footer />
+		</>
 	);
 };
 

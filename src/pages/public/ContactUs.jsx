@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import GeneralHeader from "../../components/index.jsx";
 import BreadCrumb from "../../components/BreadCrumb.jsx";
+import Footer from "../../components/Footer.jsx";
 
 const ContactUs = () => {
 	useEffect(() => {
@@ -8,10 +9,13 @@ const ContactUs = () => {
 	}, []);
 
 	return (
-		<GeneralHeader>
+		<>
+			<GeneralHeader title='Contactez nous'>
 
-			<div className='h-screen'></div>
-		</GeneralHeader>
+
+			</GeneralHeader>
+			<Footer />
+		</>
 	);
 };
 

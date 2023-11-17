@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
 import {profileLink, root} from "../../routes/index.js";
 import logoGoogle from "../../assets/google.png";
@@ -7,6 +7,7 @@ import {jwtDecode} from "jwt-decode";
 import useAuth from "../../hooks/useAuth.js";
 import {useForm} from "react-hook-form";
 import Head from "../../components/Head.jsx";
+import Loading from "../../components/Loading.jsx";
 
 const SignupPage = () => {
 
@@ -18,6 +19,8 @@ const SignupPage = () => {
 		register,
 		watch
 	} = useForm()
+
+	const [loading, setLoading] = useState(false);
 
 	const password = watch('password')
 	//console.log(password)
@@ -43,9 +46,12 @@ const SignupPage = () => {
 	}, []);
 
 	const submit = async (data) => {
-		console.log(data)
+		setLoading(true)
 		const result = await fetchRegister(data)
-		console.log(result)
+		if (result) {
+			console.log(result)
+			setLoading(false)
+		}
 	}
 
 	return (
@@ -150,12 +156,17 @@ const SignupPage = () => {
 						<NavLink to={root}
 						         className='text-purple font-semibold hover:text-yellow duration-300 transition'
 						>Annuler</NavLink>
-						<button
+						{
+							loading ? <div className='flex mr-10'>
+									<Loading />
+								</div> :
+								<button
 
-							className='p-2 px-5 bg-yellow/80 hover:bg-yellow duration-300 transition text-white font-semibold'
-						>
-							Créer un compte
-						</button>
+									className='p-2 px-5 bg-yellow/80 hover:bg-yellow duration-300 transition text-white font-semibold'
+								>
+									Créer un compte
+								</button>
+						}
 
 					</div>
 					<div className='flex flex-col mt-5'>

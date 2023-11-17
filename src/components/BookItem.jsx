@@ -6,30 +6,30 @@ import {placeHolderImage} from "../api/index.js";
 
 
 const BookItem = ({ book = []}) => {
-    let bookName = 'les tres pretendants un mari de victor Hugo je suis'
+    let bookName = 'La vérité sur l\'amour\n'
 
 
     return (
-        <div className="w-72 bg-white rounded-lg mb-4 mr-5">
+        <div className="w-52 bg-white rounded-lg mb-4 mr-5">
         <div className="flex flex-col justify-between items-center p-4 w-full">
           <div className="w-full">
             {/*<img className="w-full h-60" src="https://picsum.photos/600/400" alt="Image de livre" />*/}
               <LazyLoadImage
                   placeholderSrc={placeHolderImage}
-                  src="https://picsum.photos/600/400"
+                  src="https://assets.dreame.com/dreame/image/96a5b352f4aa9f2424c4894b8a5f03fd.png@.webp"
                   className='"w-full h-60'
                   placeholderClass='"w-full h-60'
               />
           </div>
           <div className="w-full">
-            <h2 className="text-xl font-semibold mb-2 text-slate">
+            <h2 className="text-lg font-semibold mb-2 text-slate">
                 {bookName.length > 50 ? bookName.slice(0,50)+'...':bookName}
             </h2>
         
-            <p className="text-sm">auteur du livre</p>
+            <p className="text-xs mb-2 text-purple">Rabipek</p>
             <div className="flex justify-between">
-              <a href="#" className="text-yellow">Acheter</a>
-              <NavLink to={bookViewRoute} className=" text-slate font-semibold">En savoir plus</NavLink>
+              <a href="#" className="text-yellow text-sm">Acheter</a>
+              <NavLink to={bookViewRoute} className=" text-slate font-semibold text-sm">En savoir plus</NavLink>
             </div>
           </div>
         </div>

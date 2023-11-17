@@ -8,7 +8,7 @@ export const secretID = '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';
 
 export const googleLocalToken = localStorage.getItem('googleToken');
 
-const baseUrl = 'http://exemple/api'
+const baseUrl = 'https://api.rabipeknovel.com'
 
 //user endpoints
 const loginEndpoint = `${baseUrl}/login`

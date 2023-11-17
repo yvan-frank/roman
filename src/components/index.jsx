@@ -6,23 +6,24 @@ import Footer from "./Footer.jsx";
 import BreadCrumb from "./BreadCrumb.jsx";
 import {useLocation} from "react-router-dom";
 
-const GeneralHeader = ({children}) => {
+const GeneralHeader = ({children, title, isShow}) => {
 	const {pathname} = useLocation()
-	const [title, setTitle] = useState('');
+	//const [title, setTitle] = useState('');
 	useEffect(() => {
-		const documentTitle = document.title;
-		setTitle(documentTitle)
+		// const documentTitle = document.title;
+		// setTitle(documentTitle)
 	}, [pathname]);
 	const [openNav, setOpenNav] = useState(false);
 	return (
-		<>
+		<div>
 			<MobileUser openNav={openNav} setOpenNav={() => setOpenNav(!openNav)} />
 			<TopBar />
 			<Header open={openNav} setOpen={setOpenNav} />
-			<BreadCrumb pageTitle={title}/>
-			{children}
-			<Footer />
-		</>
+			<BreadCrumb pageTitle={title} isShow={isShow}/>
+			<div className='h-screen'>
+				{children}
+			</div>
+		</div>
 	);
 };
 

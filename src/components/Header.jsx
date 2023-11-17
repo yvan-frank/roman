@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import logo from '../assets/logo rapid.jpg'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { root, searchLink } from '../routes'
+import {catalogueLink, root, searchLink} from '../routes'
 import playLogo from "../assets/playstore.png";
 import appleLogo from "../assets/apple.png";
 import {AiOutlineClose, AiOutlineMenu, AiOutlineSearch} from "react-icons/ai";
@@ -101,8 +101,8 @@ export default function Header({open, setOpen}) {
                     <div className='flex flex-row items-center justify-between'>
                         <div className={`hidden lg:flex justify-between items-center flex-row w-1/2 mr-5 ${scrollY > 400 && 'w-full'}`}>
                             <NavLink className='mx-3' to={root}>Accueil</NavLink>
-                            <NavLink className='mx-3'>Catalogue</NavLink>
-                            <NavLink className='mx-3'>Sélections</NavLink>
+                            <NavLink to={catalogueLink} className='mx-3'>Catalogue</NavLink>
+                            <button className='mx-3'>Sélections</button>
                         </div>
 
                         <div className={`hidden mr-5 ${scrollY > 400 ? 'hidden lg:flex' : 'hidden'}`}>

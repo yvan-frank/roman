@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import GeneralHeader from "../../components/index.jsx";
 import {RiDeleteBin6Line} from "react-icons/ri";
+import Footer from "../../components/Footer.jsx";
 
 const Cart = () => {
 
@@ -8,8 +9,8 @@ const Cart = () => {
 		document.title = "Panier ";
 	}, []);
 	return (
-		<GeneralHeader>
-			<div className='h-screen'>
+		<>
+			<GeneralHeader title='Panier'>
 				<div className='flex flex-col md:flex-row max-w-6xl mx-auto mt-20 justify-between px-5 lg:px-0'>
 					<div className='md:w-1/2 lg:w-2/4'>
 						<div className='w-full flex flex-col'>
@@ -47,8 +48,10 @@ const Cart = () => {
 						</div>
 					</div>
 				</div>
-			</div>
-		</GeneralHeader>
+
+			</GeneralHeader>
+			<Footer />
+		</>
 	);
 };
 

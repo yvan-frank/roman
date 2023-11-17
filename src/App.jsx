@@ -2,14 +2,14 @@ import HomePage from './pages/public/HomePage'
 import { Route, Routes } from 'react-router-dom'
 import {
     aboutLink,
-    bookViewRoute, cartLink, cgvLink, contactLink,
+    bookViewRoute, cartLink, catalogueLink, cgvLink, contactLink,
     libraryLInk,
     loginLink,
-    mentionLink, politicLink,
+    mentionLink, modalitiesLink, politicLink,
     profileLink,
     root,
     searchLink,
-    signupLink
+    signupLink, uploadBookLink
 } from './routes'
 import BookViewPage from './pages/public/BookViewPage'
 import SearchPage from './pages/public/SearchPage'
@@ -27,6 +27,9 @@ import PoliticPage from "./pages/public/PolicticPage.jsx";
 import CvgPage from "./pages/public/CvgPage.jsx";
 import ContactUs from "./pages/public/ContactUs.jsx";
 import Cart from "./pages/public/Cart.jsx";
+import Catalogue from "./pages/public/Catalogue.jsx";
+import UploadBook from "./pages/public/UploadBook.jsx";
+import Modality from "./pages/public/Modality.jsx";
 
 
 function App() {
@@ -59,6 +62,9 @@ function App() {
             <Route path={cgvLink} element={<CvgPage />} />
             <Route path={contactLink} element={<ContactUs />} />
             <Route path={cartLink} element={<Cart />} />
+            <Route path={catalogueLink} element={<Catalogue />} />
+            <Route path={uploadBookLink} element={<UploadBook />} />
+            <Route path={modalitiesLink} element={<Modality />} />
 
             {/*Protected routes*/}
             <Route element={<RequireAuth />}>

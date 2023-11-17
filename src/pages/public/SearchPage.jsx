@@ -16,13 +16,12 @@ export default function SearchPage() {
     }, []);
   return (
     <div>
-      <GeneralHeader>
-          <div className='h-screen'>
-              <div className='flex flex-col items-center mt-20'>
-                  <h2 className='text-3xl'>Recherche: </h2>
-                  <span className=' font-bold'>{query}</span>
-              </div>
+      <GeneralHeader title='Recherche'>
+          <div className='flex flex-col items-center mt-20'>
+              <h2 className='text-3xl'>Recherche: </h2>
+              <span className=' font-bold'>{query}</span>
           </div>
+          <Footer />
       </GeneralHeader>
     </div>
   )

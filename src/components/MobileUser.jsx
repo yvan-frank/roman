@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import {libraryLInk, loginLink, profileLink, root} from "../routes/index.js";
+import {catalogueLink, libraryLInk, loginLink, profileLink, root} from "../routes/index.js";
 import {AiOutlineClose} from "react-icons/ai";
 import {BsBookHalf} from "react-icons/bs";
 import {BiSolidUser} from "react-icons/bi";
@@ -31,8 +31,8 @@ const MobileUser = ({openNav, setOpenNav}) => {
 							</button>
 							<div className='p-2 text-lg h-3/4 flex flex-col overflow-y-auto scroll-smooth'>
 								<NavLink className='my-2 hover:text-purple' to={root}>Accueil</NavLink>
-								<NavLink className='my-2 hover:text-purple'>Catalogue</NavLink>
-								<NavLink className='my-2 hover:text-purple'>Sélections</NavLink>
+								<NavLink to={catalogueLink} className='my-2 hover:text-purple'>Catalogue</NavLink>
+								<button className='my-2 text-start hover:text-purple'>Sélections</button>
 							</div>
 							<div className='flex flex-col p-2 text-lg bg-slate/10'>
 								{
