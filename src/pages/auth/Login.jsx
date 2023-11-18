@@ -3,9 +3,9 @@ import TopBar from "../../components/TopBar.jsx";
 import Header from "../../components/Header.jsx";
 import {NavLink, useNavigate} from "react-router-dom";
 import logoGoogle from "../../assets/google.png"
-import {profileLink, root, signupLink} from "../../routes/index.js";
+import {loginLink, profileLink, root, signupLink} from "../../routes/index.js";
 import {jwtDecode} from "jwt-decode";
-import {clientID} from "../../api/index.js";
+import {clientID, fetchRegister, loginUser} from "../../api/index.js";
 import useAuth from "../../hooks/useAuth.js";
 import Loading from "../../components/Loading.jsx";
 import {useForm} from "react-hook-form";
@@ -23,8 +23,24 @@ const LoginPage = () => {
 		register
 	} = useForm()
 
-	const submit = (data) => {
-		console.log(data)
+	const [message, setMessage] = useState('');
+	const submit = async (data) => {
+		setLoading(true)
+		const result = await loginUser(data)
+		console.log(result)
+		if (result) {
+			//console.log(result.data.status)
+			const status = result.status
+			if (status === 400) {
+				setMessage(result.data.message)
+				console.log(result.data.message)
+				setLoading(false)
+			}else {
+				navigate(profileLink)
+				setAuth({googleToken: result.data.api_token, userDecode: result.data})
+			}
+
+		}
 	}
 
 	const handleCbResponse = (response) => {
@@ -69,6 +85,9 @@ const LoginPage = () => {
 				<form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-96 mt-10"
 					onSubmit={handleSubmit(submit)}
 				>
+					{
+						message && <div className='text-red-500 bg-red-500/10 rounded p-2 text-sm mb-2'>{message}</div>
+					}
 					<div className="mb-4">
 						<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
 							Adresse électronique

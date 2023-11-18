@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
-import {profileLink, root} from "../../routes/index.js";
+import {loginLink, profileLink, root} from "../../routes/index.js";
 import logoGoogle from "../../assets/google.png";
 import {clientID, fetchRegister} from "../../api/index.js";
 import {jwtDecode} from "jwt-decode";
@@ -45,12 +45,21 @@ const SignupPage = () => {
 		)
 	}, []);
 
+	const [message, setMessage] = useState('');
 	const submit = async (data) => {
 		setLoading(true)
 		const result = await fetchRegister(data)
 		if (result) {
-			console.log(result)
-			setLoading(false)
+			//console.log(result.data.status)
+			const status = result.data.status
+			if (status) {
+				setMessage(result.data.message)
+				console.log(result.data.message)
+				setLoading(false)
+			}else {
+				navigate(loginLink)
+			}
+
 		}
 	}
 
@@ -67,9 +76,13 @@ const SignupPage = () => {
 					<h3 className='font-bold text-6xl text-purple'>Rabipek Novel</h3>
 					<p className='text-center mt-5'>Voyage dans un monde de passion enchantée</p>
 				</div>
+
 				<form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-96 mt-10"
 					onSubmit={handleSubmit(submit)}
 				>
+					{
+						message && <div className='text-red-500 bg-red-500/10 rounded p-2 text-sm mb-2'>{message}</div>
+					}
 					<div className="mb-2">
 						{/*<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">*/}
 						{/*	Adresse électronique*/}

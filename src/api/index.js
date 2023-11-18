@@ -8,7 +8,11 @@ export const secretID = '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';
 
 export const googleLocalToken = localStorage.getItem('googleToken');
 
-const baseUrl = 'https://api.rabipeknovel.com'
+//development
+const baseUrl = '/api'
+
+//production
+//const baseUrl = 'https://api.rabipeknovel.com/api'
 
 //user endpoints
 const loginEndpoint = `${baseUrl}/login`
@@ -71,8 +75,8 @@ const apiCall = async (endpoint, method, data, authorization) => {
 		const response = await axios.request(options);
 		return response.data;
 	} catch (error) {
-		console.log(error);
-		return {}
+		//console.log(error);
+		return error.response
 	}
 }
 
