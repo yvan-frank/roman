@@ -5,14 +5,17 @@ import './index.css'
 import { BrowserRouter } from "react-router-dom";
 import ScrollToTop from './components/ScrollToTop.jsx';
 import {AuthProvider} from "./hooks/auth.jsx";
+import {CookiesProvider} from "react-cookie";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
         <ScrollToTop />
-      <AuthProvider>
-          <App />
-      </AuthProvider>
+      <CookiesProvider>
+          <AuthProvider>
+              <App />
+          </AuthProvider>
+      </CookiesProvider>
 
     </BrowserRouter>
   </React.StrictMode>,

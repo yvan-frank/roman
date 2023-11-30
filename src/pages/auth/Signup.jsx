@@ -24,26 +24,26 @@ const SignupPage = () => {
 
 	const password = watch('password')
 	//console.log(password)
-	const handleCbResponse = (response) => {
-		let userObject = jwtDecode(response.credential)
-		setAuth({googleToken: response.credential, userDecode: userObject})
-		//console.log(userObject)
-		localStorage.setItem('googleToken', response.credential)
-		setTimeout(() => {
-			navigate(profileLink)
-		}, 3000)
-	}
-	useEffect(() => {
-		google.accounts.id.initialize({
-			client_id: clientID,
-			auto_sign_in: true,
-			callback: handleCbResponse
-		})
-		google.accounts.id.renderButton(
-			document.getElementById("buttonDiv"),
-			{theme: 'outline', size:'large'}
-		)
-	}, []);
+	// const handleCbResponse = (response) => {
+	// 	let userObject = jwtDecode(response.credential)
+	// 	setAuth({googleToken: response.credential, userDecode: userObject})
+	// 	//console.log(userObject)
+	// 	localStorage.setItem('googleToken', response.credential)
+	// 	setTimeout(() => {
+	// 		navigate(profileLink)
+	// 	}, 3000)
+	// }
+	// useEffect(() => {
+	// 	google.accounts.id.initialize({
+	// 		client_id: clientID,
+	// 		auto_sign_in: true,
+	// 		callback: handleCbResponse
+	// 	})
+	// 	google.accounts.id.renderButton(
+	// 		document.getElementById("buttonDiv"),
+	// 		{theme: 'outline', size:'large'}
+	// 	)
+	// }, []);
 
 	const [message, setMessage] = useState('');
 	const submit = async (data) => {

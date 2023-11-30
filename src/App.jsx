@@ -35,6 +35,7 @@ import Modality from "./pages/public/Modality.jsx";
 function App() {
     // Empêche l'enregistrement de la page
     const {auth} = useAuth()
+
     function preventScreenshot() {
         // Vérifie si l'utilisateur tente d'enregistrer la page
         if (window.event.ctrlKey && window.event.altKey && window.event.keyCode === 80) {

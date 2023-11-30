@@ -69,7 +69,8 @@ const apiCall = async (endpoint, method, data, authorization) => {
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${authorization}`
-		}
+		},
+		withCredentials: true
 	}
 	try {
 		const response = await axios.request(options);

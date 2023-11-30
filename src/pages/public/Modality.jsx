@@ -57,7 +57,7 @@ const Modality = () => {
 										<div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
 											<img className="has-mask h-24 object-center" src={logo} alt="Rabipek Novel" />
 										</div>
-										<p className="pointer-none text-gray-500 "><span className="text-sm">Glissez et déposez</span> vos fichiers ici <br /> ou <a href="" id="" className="text-blue-600 hover:underline">selectionnez un fichier </a>
+										<p className="pointer-none text-gray-500 "><span className="text-sm">Glissez et déposez</span> vos fichiers ici <br /> ou <span  className="text-blue-600 hover:underline">selectionnez un fichier </span>
 										à partir de votre ordinateur</p>
 									</div>
 									<input type="file" className="hidden" accept=".pdf,.docx"

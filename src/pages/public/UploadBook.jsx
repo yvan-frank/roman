@@ -21,8 +21,8 @@ const UploadBook = () => {
 							Publier votre livre
 						</NavLink>
 						<div className='flex flex-wrap'>
-							<BookItem />
-							<BookItem />
+							{/*<BookItem />*/}
+							{/*<BookItem />*/}
 
 						</div>
 					</div>

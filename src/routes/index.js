@@ -1,5 +1,5 @@
 export const root = '/';
-export const bookViewRoute = '/list/:bookName';
+export const bookViewRoute = '/list';
 export const searchLink = '/recherche';
 export const cartLink = '/panier';
 export const checkoutLink = '/checkout';

@@ -73,15 +73,7 @@ const Catalogue = () => {
 						</div>
 						<div className='w-3/4'>
 							<div className='w-full px-5 flex flex-wrap'>
-								<BookItem />
-								<BookItem />
-								<BookItem />
-								<BookItem />
-								<BookItem />
-								<BookItem />
-								<BookItem />
-								<BookItem />
-								<BookItem />
+
 							</div>
 						</div>
 					</div>

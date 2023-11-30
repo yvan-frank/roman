@@ -10,6 +10,7 @@ import useAuth from "../../hooks/useAuth.js";
 import Loading from "../../components/Loading.jsx";
 import {useForm} from "react-hook-form";
 import Head from "../../components/Head.jsx";
+import axios from "axios";
 
 const LoginPage = () => {
 
@@ -26,8 +27,9 @@ const LoginPage = () => {
 	const [message, setMessage] = useState('');
 	const submit = async (data) => {
 		setLoading(true)
+
 		const result = await loginUser(data)
-		console.log(result)
+		//console.log(result)
 		if (result) {
 			//console.log(result.data.status)
 			const status = result.status
@@ -38,37 +40,38 @@ const LoginPage = () => {
 			}else {
 				navigate(profileLink)
 				setAuth({googleToken: result.data.api_token, userDecode: result.data})
+				localStorage.setItem('googleToken', result.data.api_token)
 			}
 
 		}
 	}
 
-	const handleCbResponse = (response) => {
-		setLoading(true)
-		//console.log(response)
-		//console.log("encoded JWT ID Token : ", response.credential);
-		let userObject = jwtDecode(response.credential)
-		setAuth({googleToken: response.credential, userDecode: userObject})
-		//console.log(userObject)
-		localStorage.setItem('googleToken', response.credential)
-		setTimeout(() => {
-			navigate(profileLink)
-		}, 3000)
-	}
-
-	useEffect(() => {
-		google.accounts.id.initialize({
-			client_id: clientID,
-			auto_sign_in: true,
-			callback: handleCbResponse
-		})
-		google.accounts.id.renderButton(
-			document.getElementById("buttonDiv"),
-			{theme: 'outline', size:'large'}
-		)
-
-
-	}, []);
+	// const handleCbResponse = (response) => {
+	// 	setLoading(true)
+	// 	//console.log(response)
+	// 	//console.log("encoded JWT ID Token : ", response.credential);
+	// 	let userObject = jwtDecode(response.credential)
+	// 	setAuth({googleToken: response.credential, userDecode: userObject})
+	// 	//console.log(userObject)
+	// 	localStorage.setItem('googleToken', response.credential)
+	// 	setTimeout(() => {
+	// 		navigate(profileLink)
+	// 	}, 3000)
+	// }
+	//
+	// useEffect(() => {
+	// 	google.accounts.id.initialize({
+	// 		client_id: clientID,
+	// 		auto_sign_in: true,
+	// 		callback: handleCbResponse
+	// 	})
+	// 	google.accounts.id.renderButton(
+	// 		document.getElementById("buttonDiv"),
+	// 		{theme: 'outline', size:'large'}
+	// 	)
+	//
+	//
+	// }, []);
 	return (
 		<div>
 			<Head

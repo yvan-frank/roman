@@ -1,51 +1,108 @@
-import React, {useState} from 'react'
-import { NavLink } from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import {NavLink, useSearchParams} from 'react-router-dom'
 import {BiSolidUser} from 'react-icons/bi'
 import BookItem from '../../components/BookItem'
 import Header from '../../components/Header'
 import TopBar from '../../components/TopBar'
 import Footer from '../../components/Footer'
+import {fetchBookDetails, placeHolderImage} from "../../api/index.js";
+import LazyLoadImage from "../../components/LazyLoadImage.jsx";
+import {root} from "../../routes/index.js";
+import {TbMathGreater} from "react-icons/tb";
+import MobileUser from "../../components/MobileUser.jsx";
+import Loading from "../../components/Loading.jsx";
+import Comment from "../../components/Comment.jsx";
 
 
 export default function BookViewPage() {
     const [tabOpen, setTabOpen] = useState(1)
-  return (
+    const [results, setResults] = useState([]);
+    const [searchParam] = useSearchParams()
+    const [loading, setLoading] = useState(true);
+
+    const bookId = searchParam.get('bookid')
+    const [bookDetails, setBookDetails] = useState(null);
+    const [authorBookList, setAuthorBookList] = useState(null);
+    const [bookRatingData, setBookRatingData] = useState(null);
+    const [recommendedBook, setRecommendedBook] = useState(null);
+    const [userReviewData, setUserReviewData] = useState(null);
+    const [authorDetails, setAuthorDetails] = useState(null);
+
+    const getData = async () => {
+        const res = await fetchBookDetails({book_id: bookId});
+        if (res) {
+            setResults(res.data);
+            //console.log(res.book_detail[0])
+            setBookDetails(res.book_detail[0])
+            setAuthorBookList(res.author_book_list)
+            setAuthorDetails(res.author_detail[0])
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+       getData()
+    }, []);
+    const [openNav, setOpenNav] = useState(false);
+
+
+    return (
    <>
-        <TopBar />
-        <Header />
+       <MobileUser openNav={openNav} setOpenNav={() => setOpenNav(!openNav)} />
+       <TopBar />
+       <Header open={openNav} setOpen={setOpenNav} />
+
+       <div className='w-full bg-slate/5 p-3 px-5 lg:px-10 '>
+           <ul className='flex items-center text-sm'>
+               <li className='px-2 hover:underline'><NavLink to={root}>Accueil</NavLink></li>
+               <li className='px-2'><TbMathGreater /></li>
+               <li className='text-slate/50'>
+                   {bookDetails?.category_name}
+               </li>
+               <li className='px-2'><TbMathGreater /></li>
+               <li className='text-slate/50'>
+                   {bookDetails?.subcategory_name}
+               </li>
+               <li className='px-2'><TbMathGreater /></li>
+               <li className='text-slate/50'>
+                   {bookDetails?.name}
+               </li>
+           </ul>
+       </div>
      <div className='max-w-7xl mx-auto lg:p-2 px-4 overflow-hidden'>
         <div className='w-full block lg:flex mt-20'>
             <div className='lg:w-1/4 flex flex-col lg:mr-5'>
-                <img className="w-full h-auto" src="https://picsum.photos/600/400" alt="Image de livre" />
+                <LazyLoadImage
+                    placeholderSrc={placeHolderImage}
+                    src={bookDetails?.back_cover}
+                    className='w-full h-auto'
+                    placeholderClass='w-full h-auto'
+                />
                 <a className='mt-5 p-2 border-2 rounded border-slate/20 text-center font-bold uppercase hover:bg-yellow
                 cursor-pointer duration-150 hover:text-white hover:border-yellow'>
                     Lire l'extrait en ligne
-                </a>
-                <a className='mt-5 p-2 border-2 rounded border-slate/20 text-center font-bold uppercase hover:bg-yellow
-                cursor-pointer duration-150 hover:text-white hover:border-yellow'>
-                    Télécharger l'extrait
                 </a>
             </div>
             <div className='lg:w-3/4 lg:ml-5 flex flex-col'>
                 {/* Book tilte */}
                 <div className='flex flex-col mb-14 mt-10 lg:mt-0'>
-                    <h1 className='font-bold text-4xl'>Book title</h1>
-                    <p className='text-lg'>de <NavLink className='text-yellow'>Asha Lemmie</NavLink> (Auteur)</p>
+                    <h1 className='font-bold text-4xl'>{bookDetails?.name}</h1>
+                    <p className='text-lg'>de <NavLink className='text-purple'>{authorDetails?.name}</NavLink> (Auteur)</p>
                 </div>
                 {/* Buy */}
                 <div className='mb-20'>
-                    <NavLink className='py-4 px-8 duration-500 bg-yellow hover:bg-purple rounded text-white font-semibold'>Acheter pour 5000 FCFA</NavLink>
+                    <NavLink className='py-4 px-8 duration-500 bg-yellow hover:bg-purple rounded text-white font-semibold'>Acheter pour {bookDetails?.price} FCFA</NavLink>
                 </div>
                 {/* category */}
                 <div className='flex flex-wrap'>
                     <div className='text-center mr-2 lg:mr-5'>
                         <p className=' duration-150 py-2 px-2 lg:px-5 rounded-full border border-slate/20 font-semibold cursor-pointer hover:bg-slate/20 hover:border-slate/10'>
-                            Science-fiction
+                            {bookDetails?.category_name}
                         </p>
                     </div>
                     <div className='text-center mr-5'>
                         <p className=' duration-150 py-2 px-5 rounded-full border border-slate/20 font-semibold cursor-pointer hover:bg-slate/20 hover:border-slate/10'>
-                            Science
+                            {bookDetails?.subcategory_name}
                         </p>
                     </div>
                 </div>
@@ -59,12 +116,11 @@ export default function BookViewPage() {
                     {/* display single table */}
                     <div className={`${tabOpen === 1 ? 'block': 'hidden'}`}>
                         <div>
-                            <h3 className='font-semibold'>
-                            Un premier roman bouleversant sur le passage à l'âge adulte d’une jeune femme dans le Japon de l’après Seconde Guerre mondiale
+                            <h3 className='font-semibold my-5'>
+                                {bookDetails?.title}
                             </h3>
                             <p>
-                            Kyoto, 1948. Nori Kamiza n’a que huit ans lorsque sa mère la laisse devant l’immense demeure de sa grand-mère. La famille Kamiza est parmi les plus nobles du Japon, or Nori, aux cheveux crépus et à la peau foncée, est le fruit d'une relation scandaleuse avec un gaijin, un étranger, noir de surcroît. Alors sa grand-mère l’accueille, mais va tout faire pour la cacher. Elle l’installe au grenier et l'oblige à subir des traitements pour la rendre plus « japonaise » : elle lui lisse les cheveux et la soumet à des bains d'eau de Javel pour blanchir sa peau. Nori accepte son sort, malgré sa curiosité lancinante pour ce qui se trouve à l’extérieur des murs du grenier. Mais lorsque le hasard amène son demi-frère aîné légitime, Akira, sur le domaine qui est son héritage et son destin, Nori accède à un monde nouveau. Un monde dans lequel elle n’est pas une intruse, mais un être libre, digne d’être aimé. Cependant tout a un prix. Et la liberté de Nori exigera plus d’un sacrifice…
-
+                                {bookDetails?.description}
                             </p>
                         </div>
                     </div>
@@ -72,27 +128,27 @@ export default function BookViewPage() {
                         <table className=' text-left'>
                             <tr>
                                 <th className='pr-10 pb-3 font-semibold'>Format</th>
-                                <tr>EPUB</tr>
+                                <tr>{bookDetails?.format}</tr>
                             </tr>
                             <tr>
-                                <th className='pr-10 pb-3 font-semibold'>Protection</th>
-                                <tr>Avec DRM</tr>
+                                <th className='pr-10 pb-3 font-semibold'>Catégorie</th>
+                                <tr>{bookDetails?.category_name}</tr>
                             </tr>
                             <tr>
                                 <th className='pr-10 pb-3 font-semibold'>Date de publication</th>
-                                <tr>4 octobre 2023</tr>
+                                <tr>{bookDetails?.date_of_publication}</tr>
                             </tr>
                             <tr>
                                 <th className='pr-10 pb-3 font-semibold'>Editeur</th>
-                                <tr>HarperCollins</tr>
+                                <tr>{bookDetails?.publisher}</tr>
                             </tr>
                             <tr>
                                 <th className='pr-10 pb-3 font-semibold'>Nombre de pages</th>
-                                <tr>400</tr>
+                                <tr>...</tr>
                             </tr>
                             <tr>
                                 <th className='pr-10 pb-3 font-semibold'>Langue</th>
-                                <tr>Français</tr>
+                                <tr>{bookDetails?.language}</tr>
                             </tr>
                         
                         </table>
@@ -104,19 +160,16 @@ export default function BookViewPage() {
                         <h3 className=' text-lg font-semibold'>Commentaires</h3>
                         <button className='p-2 bg-yellow rounded text-white font-semibold'>Ecrire un Commentaire</button>
                     </div>
-                    <div className='w-96 bg-white py-2 px-3 rounded border border-slate/10 mt-5 lg:mt-0'>
-                        <div className=' w-full flex flex-col justify-start'>
-                           <div className='flex items-center'>
-                                <div className='h-10 w-10 rounded-full bg-slate/10 flex items-center justify-center'>
-                                    <BiSolidUser />
-                                </div>
-                                <div className='flex flex-col text-sm ml-3'>
-                                    <span className=' font-semibold'>VAns</span>
-                                    <span className='text-xs'>28 may</span>
-                                </div>
-                           </div>
-                           <p className='mt-5 mb-2'>Good book</p>
-                        </div>
+                    <div className='block mt-5'>
+                        {
+                            userReviewData && userReviewData.length > 0 ?
+                                userReviewData.map((review, index) => {
+                                    return (
+                                        <Comment />
+                                    )
+                                }):
+                                <span className='text-center text-md'>Pas de données à afficher pour le moment...</span>
+                        }
                     </div>
                 </div>
                 {/* Livres recommandes */}
@@ -126,15 +179,18 @@ export default function BookViewPage() {
                         <button className='p-2 rounded text-yellow font-semibold underline'>Tout voir</button>
                     </div>
                     <div className='flex flex-wrap justify-center lg:justify-start mt-5'>
-                        <BookItem />
-                        <BookItem />
-                        <BookItem />
-                        <BookItem />
+                        <span className='text-center text-md'>Pas de données à afficher pour le moment...</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+       <div className={`${loading ? 'block': 'hidden'}`}>
+           <div className='fixed inset-0 flex items-center justify-center w-full'>
+               {loading && <Loading />}
+
+           </div>
+       </div>
     <Footer />
    </>
   )

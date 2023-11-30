@@ -16,6 +16,7 @@ const ProfilePage = () => {
 	const divRef = useRef(null);
 	useEffect(() => {
 		//let userDecode = jwtDecode(auth.googleToken)
+		document.title = "Profil d'utilisateur"
 		setUser(auth.userDecode)
 	}, []);
 	useEffect(() => {
