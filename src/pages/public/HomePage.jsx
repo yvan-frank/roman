@@ -7,7 +7,9 @@ import Loading from "../../components/Loading.jsx";
 import Hero from "../../components/Hero.jsx";
 import MobileUser from "../../components/MobileUser.jsx";
 import Head from "../../components/Head.jsx";
-import {fetchBooks} from "../../api/index.js";
+import {baseUrl, fetchBooks} from "../../api/index.js";
+import axios from "axios";
+import {useQuery} from "react-query";
 
 export default function HomePage() {
     const [results, setResults] = useState([]);
@@ -22,12 +24,23 @@ export default function HomePage() {
     const fetchData = async () => {
         const res = await fetchBooks();
         if (res) {
-            console.log(res.data)
+            //console.log(res.data)
             setResults(res.data);
             setLoading(false);
         }
+        // axios.get('https://api.rabipeknovel.com/api/book-list?page=1').then((res) => {
+        //     setResults(res.data);
+        //     setLoading(false);
+        // }).catch(error => {
+        //     console.log(error)
+        //     setLoading(false);
+        // })
     };
 
+    // const {isLoading, error, data} = useQuery('book', () =>
+    //     fetch(baseUrl + '/book-list?page=1').then(res => res.json()))
+    //  console.log(data)
+    // console.log('Error => ', error)
     return (
     <>
         <Head
@@ -49,25 +62,31 @@ export default function HomePage() {
             }
             <div className='flex flex-col mt-14'>
                 <div className='flex justify-between'>
-                    <h2 className=' font-bold text-2xl lg:text-3xl text-purple'>Populaires</h2>
-                    <span>Tout voir</span>
+                    <h2 className=' font-bold md:text-2xl lg:text-3xl text-purple'>Populaires</h2>
+                    <span className='text-sm md:text-base'>Tout voir</span>
                 </div>
                 <div className='flex flex-wrap mt-5'>
                     {
-                        results && results.map((book) => {
-                            return <BookItem keyY={book.book_id} book={book} />
+                        results && results.map((book, i) => {
+                            return <BookItem keyY={i} book={book} />
                         })
                     }
+                    {
+                        results && results.map((book, i) => {
+                            return <BookItem keyY={i} book={book} />
+                        })
+                    }
+
 
                 </div>
             </div>
             <div className='flex flex-col mt-14'>
                 <div className='flex justify-between'>
-                    <h2 className=' font-bold text-2xl lg:text-3xl text-purple'>Recommandations</h2>
-                    <span>Tout voir</span>
+                    <h2 className=' font-bold md:text-2xl lg:text-3xl text-purple'>Recommandations</h2>
+                    <span className='text-sm md:text-base'>Tout voir</span>
                 </div>
                 <div className='flex flex-wrap mt-5'>
-                    <span className='text-center text-md'>Pas de données à afficher pour le moment...</span>
+                    <span className='text-center text-xs md:text-lg'>Pas de données à afficher pour le moment...</span>
                 </div>
             </div>
         </div>

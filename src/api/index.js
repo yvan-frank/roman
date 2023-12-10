@@ -9,10 +9,10 @@ export const secretID = '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';
 export const googleLocalToken = localStorage.getItem('googleToken');
 
 //development
-const baseUrl = '/api'
+//export const baseUrl = '/api'
 
 //production
-//const baseUrl = 'https://api.rabipeknovel.com/api'
+export const baseUrl = 'https://api.rabipeknovel.com/api'
 
 //user endpoints
 const loginEndpoint = `${baseUrl}/login`
@@ -65,12 +65,13 @@ const apiCall = async (endpoint, method, data, authorization) => {
 		method: method,
 		url: endpoint,
 		data: data? data: {},
+		withCredentials: true,
 		// params: params? params: {},
 		headers: {
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${authorization}`
 		},
-		withCredentials: true
+
 	}
 	try {
 		const response = await axios.request(options);

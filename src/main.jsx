@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import ScrollToTop from './components/ScrollToTop.jsx';
 import {AuthProvider} from "./hooks/auth.jsx";
 import {CookiesProvider} from "react-cookie";
+import { QueryClient, QueryClientProvider } from 'react-query'
+const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -13,7 +15,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <ScrollToTop />
       <CookiesProvider>
           <AuthProvider>
-              <App />
+              <QueryClientProvider client={queryClient}>
+                  <App />
+              </QueryClientProvider>
           </AuthProvider>
       </CookiesProvider>
 

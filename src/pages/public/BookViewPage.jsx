@@ -52,8 +52,8 @@ export default function BookViewPage() {
        <TopBar />
        <Header open={openNav} setOpen={setOpenNav} />
 
-       <div className='w-full bg-slate/5 p-3 px-5 lg:px-10 '>
-           <ul className='flex items-center text-sm'>
+       <div className='w-full bg-slate/5 p-3 px-5 lg:px-10 overflow-hidden'>
+           <ul className='flex items-center text-sm overflow-x-scroll'>
                <li className='px-2 hover:underline'><NavLink to={root}>Accueil</NavLink></li>
                <li className='px-2'><TbMathGreater /></li>
                <li className='text-slate/50'>
@@ -86,12 +86,15 @@ export default function BookViewPage() {
             <div className='lg:w-3/4 lg:ml-5 flex flex-col'>
                 {/* Book tilte */}
                 <div className='flex flex-col mb-14 mt-10 lg:mt-0'>
-                    <h1 className='font-bold text-4xl'>{bookDetails?.name}</h1>
-                    <p className='text-lg'>de <NavLink className='text-purple'>{authorDetails?.name}</NavLink> (Auteur)</p>
+                    <h1 className='font-bold text-2xl md:text-4xl'>{bookDetails?.name}</h1>
+                    <p className='md:text-lg text-sm'>de <NavLink className='text-purple'>{authorDetails?.name}</NavLink> (Auteur)</p>
                 </div>
                 {/* Buy */}
                 <div className='mb-20'>
-                    <NavLink className='py-4 px-8 duration-500 bg-yellow hover:bg-purple rounded text-white font-semibold'>Acheter pour {bookDetails?.price} FCFA</NavLink>
+                    <NavLink
+                        className='py-4 px-8 duration-500 bg-yellow hover:bg-purple rounded text-white font-semibold text-sm md:text-base'>
+                        Acheter pour {bookDetails?.price} FCFA
+                    </NavLink>
                 </div>
                 {/* category */}
                 <div className='flex flex-wrap'>
@@ -168,7 +171,7 @@ export default function BookViewPage() {
                                         <Comment />
                                     )
                                 }):
-                                <span className='text-center text-md'>Pas de données à afficher pour le moment...</span>
+                                <span className='text-center text-xs flex'>Pas de données à afficher pour le moment...</span>
                         }
                     </div>
                 </div>
@@ -179,7 +182,7 @@ export default function BookViewPage() {
                         <button className='p-2 rounded text-yellow font-semibold underline'>Tout voir</button>
                     </div>
                     <div className='flex flex-wrap justify-center lg:justify-start mt-5'>
-                        <span className='text-center text-md'>Pas de données à afficher pour le moment...</span>
+                        <span className='text-center text-xs'>Pas de données à afficher pour le moment...</span>
                     </div>
                 </div>
             </div>

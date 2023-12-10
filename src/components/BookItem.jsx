@@ -6,7 +6,7 @@ import {placeHolderImage} from "../api/index.js";
 
 
 
-const BookItem = ({ keyY, book = []}) => {
+const BookItem = ({  book = []}) => {
     let bookName = 'La vérité sur l\'amour\n'
     //const key = 'RABIPEK'
     //generate key
@@ -21,26 +21,29 @@ const BookItem = ({ keyY, book = []}) => {
     const key = generateKey()
 
     return (
-        <div className="w-52 bg-white rounded-lg mb-4 mr-5" key={keyY}>
-        <div className="flex flex-col justify-between items-center p-4 w-full">
+        <div className="w-28 md:w-52 bg-white rounded-lg mb-4 m-1 lg:mr-5">
+        <div className="flex flex-col justify-between items-center p-1 lg:p-4 w-full">
           <div className="w-full">
             {/*<img className="w-full h-60" src="https://picsum.photos/600/400" alt="Image de livre" />*/}
               <LazyLoadImage
                   placeholderSrc={placeHolderImage}
                   src={book.back_cover}
-                  className='"w-full h-60'
-                  placeholderClass='"w-full h-60'
+                  className='w-full md:h-60 h-32'
+                  placeholderClass='w-full md:h-60 h-32'
               />
           </div>
           <div className="w-full">
-            <h2 className="text-lg font-semibold mb-2 text-slate">
+            <h2 className="text-xs md:text-lg font-semibold mb-2 text-slate">
                 {book.name.length > 50 ? book.name.slice(0,50)+'...':book.name}
             </h2>
         
-            <p className="text-xs mb-2 text-purple tracking-wider">{book.author_name}</p>
-            <div className="flex justify-between">
-              <a href="#" className="text-yellow text-sm">Acheter</a>
-              <NavLink to={`${bookViewRoute}?sourceid=${key}&bookid=${book.book_id}`} className=" text-slate font-semibold text-sm">En savoir plus</NavLink>
+            <p className="text-[0.6rem] md:text-xs mb-2 text-purple tracking-wider">{book.author_name}</p>
+            <div className="flex justify-between flex-col md:flex-row">
+              <a href={`${bookViewRoute}?sourceid=${key}&bookid=${book.book_id}`}
+                 className="text-yellow font-semibold text-xs md:text-sm bg-yellow/10 md:p-2 p-0.5 rounded text-center">
+                  Acheter
+              </a>
+              {/*<NavLink to={`${bookViewRoute}?sourceid=${key}&bookid=${book.book_id}`} className=" text-slate-600 font-semibold text-xs md:text-sm">En savoir plus</NavLink>*/}
             </div>
           </div>
         </div>
