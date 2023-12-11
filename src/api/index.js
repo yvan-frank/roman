@@ -65,12 +65,8 @@ const apiCall = async (endpoint, method, data, authorization) => {
 		method: method,
 		url: endpoint,
 		data: data? data: {},
-		withCredentials: true,
 		// params: params? params: {},
-		headers: {
-			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${authorization}`
-		},
+		//headers: headers? headers: {}
 
 	}
 	try {
