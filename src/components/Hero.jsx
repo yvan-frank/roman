@@ -8,24 +8,26 @@ import {catalogueLink, uploadBookLink} from "../routes/index.js";
 const Hero = () => {
 	return (
 		<div className='w-full bg-slate p-2 lg:p-10 lg:px-32 flex flex-col lg:flex-row text-white justify-between items-center
-		relative overflow-hidden '>
+		relative overflow-hidden bg-gradient'>
 			<img src={marketing} alt="" className='w-44 lg:w-52' />
 			<div className='mx-5 lg:mx-10'>
-				<h3 className='font-bold text-6xl'>Rabipek Novel</h3>
-				<p>Voyage dans un monde de passion enchantée</p>
+				<h3 className='font-bold text-3xl md:text-4xl lg:text-6xl text-gradient'>Rabipek Novel</h3>
+				<p className='text-xs md:text-base'>Voyage dans un monde de passion enchantée</p>
 				<div className='text-xl font-semibold mt-10 flex justify-between'>
 					<NavLink
 						to={catalogueLink}
-						className='rounded-lg border-yellow p-1 border px-2 hover:bg-yellow duration-150 transition hover:border-yellow'
+						className='rounded-lg border-yellow p-1 border px-2 hover:bg-yellow duration-150 transition hover:border-yellow
+						text-sm md:text-base'
 					>Lire</NavLink>
 					<NavLink
 						to={uploadBookLink}
-						className='rounded-lg border-yellow p-1 border px-2 hover:bg-purple duration-150 transition hover:border-purple'
+						className='rounded-lg border-yellow p-1 border px-2 hover:bg-purple duration-150 transition hover:border-purple
+						text-sm md:text-base'
 					>Soumettre votre manuscrit</NavLink>
 				</div>
 			</div>
 			<div className='px-0 py-5 '>
-				<h3 className='uppercase font-semibold'>Disponible maintenant</h3>
+				<h3 className='uppercase font-semibold text-xs md:text-base'>Disponible maintenant</h3>
 				<div className='flex mr-5'>
 					<div className='flex p-1 w-[7.5rem] bg-black cursor-pointer items-center rounded text-white/80'>
 						<div className='mr-1'>
@@ -47,7 +49,7 @@ const Hero = () => {
 					</div>
 				</div>
 			</div>
-			<div className='absolute p-28 bg-white right-0 blur-lg rounded-full -translate-y-20 translate-x-20'></div>
+			{/*<div className='absolute p-28 bg-white right-0 blur-lg rounded-full -translate-y-20 translate-x-20'></div>*/}
 		</div>
 	);
 };

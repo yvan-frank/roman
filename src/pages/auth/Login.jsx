@@ -5,7 +5,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import logoGoogle from "../../assets/google.png"
 import {loginLink, profileLink, root, signupLink} from "../../routes/index.js";
 import {jwtDecode} from "jwt-decode";
-import {clientID, fetchRegister, loginUser} from "../../api/index.js";
+import {baseUrl, clientID, fetchRegister, loginUser} from "../../api/index.js";
 import useAuth from "../../hooks/useAuth.js";
 import Loading from "../../components/Loading.jsx";
 import {useForm} from "react-hook-form";
@@ -35,7 +35,7 @@ const LoginPage = () => {
 			const status = result.status
 			if (status === 400) {
 				setMessage(result.data.message)
-				console.log(result.data.message)
+				//console.log(result.data.message)
 				setLoading(false)
 			}else {
 				navigate(profileLink)
@@ -82,7 +82,7 @@ const LoginPage = () => {
 			/>
 			<div className='flex justify-center items-center flex-col min-h-screen'>
 				<div>
-					<h3 className='font-bold text-6xl text-purple'>Rabipek Novel</h3>
+					<h3 className='font-bold text-4xl lg:text-6xl text-purple text-center'>Rabipek Novel</h3>
 					<p className='text-center mt-5'>Voyage dans un monde de passion enchantée</p>
 				</div>
 				<form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-96 mt-10"

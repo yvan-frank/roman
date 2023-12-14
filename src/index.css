@@ -36,5 +36,30 @@
 }
 
 @keyframes preloader {
-    100% { transform: scale(2); }
+    50% { transform: scale(2); }
+    100% { transform: scale(3); }
+}
+
+.gradient{
+    /*background: rgb(252,250,252);*/
+    /*background: linear-gradient(27deg, rgb(246, 184, 109) 0%, rgba(51,65,85,1) 51%, rgba(119,130,145,1) 100%);*/
+    background: linear-gradient(90deg, rgba(252,250,252,1) 0%, rgb(255, 255, 255) 50%, rgba(254,250,255,1) 100%);
+    /*background: rgb(255,245,221);*/
+    background: rgb(248, 251, 255);
+    /*background: linear-gradient(27deg, rgba(255,245,221,1) 0%, rgba(255,255,255,1) 50%, rgba(252,236,255,1) 100%);*/
+    background-attachment: fixed;
+    /*add background blur effect*/
+    @apply backdrop-blur-2xl
+}
+
+.bg-gradient{
+    background: rgb(51,65,85);
+    /*background: rgb(252,250,252);*/
+    background: linear-gradient(27deg, rgba(51,65,85,1) 0%, rgba(51,65,85,1) 51%, rgba(119,130,145,1) 100%);
+}
+.text-gradient{
+    background: rgb(236, 153, 0);
+    background: linear-gradient(27deg, rgb(236, 153, 0) 0%, rgb(243, 238, 234) 51%, rgb(208, 3, 107) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

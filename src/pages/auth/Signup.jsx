@@ -73,7 +73,7 @@ const SignupPage = () => {
 			/>
 			<div className='flex justify-center items-center flex-col min-h-screen'>
 				<div>
-					<h3 className='font-bold text-6xl text-purple'>Rabipek Novel</h3>
+					<h3 className='font-bold text-4xl lg:text-6xl text-purple text-center'>Rabipek Novel</h3>
 					<p className='text-center mt-5'>Voyage dans un monde de passion enchantée</p>
 				</div>
 

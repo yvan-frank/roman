@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect,Fragment} from 'react'
 import logo from '../assets/logo rapid.jpg'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {catalogueLink, root, searchLink} from '../routes'
@@ -7,6 +7,10 @@ import appleLogo from "../assets/apple.png";
 import {AiOutlineClose, AiOutlineMenu, AiOutlineSearch} from "react-icons/ai";
 import useAuth from "../hooks/useAuth.js";
 import {BsFillCartCheckFill} from "react-icons/bs";
+import {fetchCategoryList} from "../api/index.js";
+
+import { Menu, Transition } from '@headlessui/react'
+
 
 export default function Header({open, setOpen}) {
     const [query, setQuery] = useState('')
@@ -34,6 +38,19 @@ export default function Header({open, setOpen}) {
         localStorage.removeItem('googleToken')
         window.location.reload()
     }
+
+    useEffect(() => {
+        getCate()
+    }, []);
+
+    const getCate = async () => {
+      const res = await fetchCategoryList(1)
+        if (res) {
+            //console.log(res.data)
+            setResults(res.data)
+        }
+    }
+
 
     useEffect(() => {
         // Déconnecte l'utilisateur si l'utilisateur est inactif
@@ -81,7 +98,7 @@ export default function Header({open, setOpen}) {
             </NavLink>
         </div>
         <div className={`w-full top-0 py-2 bg-white z-40 ${scrollY > 400 && 'sticky transition duration-500 shadow-xl'}`}>
-            <div className='flex items-center justify-between px-8 w-full'>
+            <div className='flex items-center justify-between px-2 md:px-8 w-full'>
                 <NavLink to={root} className='w-full lg:w-96 hidden lg:block'>
                     <img className='w-20' src={logo} alt="" />
                 </NavLink>
@@ -102,7 +119,34 @@ export default function Header({open, setOpen}) {
                         <div className={`hidden lg:flex justify-between items-center flex-row w-1/2 mr-5 ${scrollY > 400 && 'w-full'}`}>
                             <NavLink className='mx-3' to={root}>Accueil</NavLink>
                             <NavLink to={catalogueLink} className='mx-3'>Catalogue</NavLink>
-                            <button className='mx-3'>Sélections</button>
+                            <Menu as="div" className="relative w-full">
+                                <div>
+                                    <Menu.Button className="w-full">
+                                        Sélection
+                                    </Menu.Button>
+                                </div>
+                                <Transition
+                                    as={Fragment}
+                                    enter="transition ease-out duration-100"
+                                    enterFrom="transform opacity-0 scale-95"
+                                    enterTo="transform opacity-100 scale-100"
+                                    leave="transition ease-in duration-75"
+                                    leaveFrom="transform opacity-100 scale-100"
+                                    leaveTo="transform opacity-0 scale-95"
+                                >
+                                    <Menu.Items className="absolute p-5 w-[30rem] left-0 right-0 rounded text-slate z-10 bg-white shadow-2xl
+                                    flex flex-wrap">
+                                        {
+                                            results && results.map((item, i) => {
+                                                return (
+                                                    <button key={i} className='list-none p-1.5 rounded-full border-slate border m-1
+                                                    hover:bg-slate hover:text-white'>{item.name}</button>
+                                                )
+                                            })
+                                        }
+                                    </Menu.Items>
+                                </Transition>
+                            </Menu>
                         </div>
 
                         <div className={`hidden mr-5 ${scrollY > 400 ? 'hidden lg:flex' : 'hidden'}`}>
@@ -137,18 +181,18 @@ export default function Header({open, setOpen}) {
                     />
                 </form>
                 <button>
-                    <BsFillCartCheckFill className='w-8 h-8 mx-5 border border-purple text-purple rounded p-1
+                    <BsFillCartCheckFill className='lg:w-10 lg:h-10 md:w-8 md:h-8 w-5 h-5 mb-1 mx-5 border border-purple text-purple rounded p-0.5 md:p-1
                     hover:bg-purple hover:text-white transition duration-150' />
                 </button>
                 <div className='block lg:hidden'>
                     {
-                        open ? <AiOutlineClose className='w-10 h-10 text-purple/20' />
+                        open ? <AiOutlineClose className='lg:w-10 lg:h-10 md:w-8 md:h-8 w-5 h-5 text-purple/20' />
                             :
                             <button
                                 onClick={() => setOpen(!open)}
                                 className='hover:text-purple duration-150 transition'
                             >
-                                <AiOutlineMenu className='w-10 h-10 ' />
+                                <AiOutlineMenu className='lg:w-10 lg:h-10 md:w-8 md:h-8 w-5 h-5' />
                             </button>
                     }
                 </div>

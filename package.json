@@ -16,6 +16,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.0",
     "fs": "^0.0.1-security",

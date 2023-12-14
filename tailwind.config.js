@@ -17,6 +17,7 @@ export default {
       'yellow': '#F4A912',
       'slate': '#334155',
       'black': '#000000',
+      'green': '#1c9407',
       'red-500': 'rgb(239 68 68)'
     },
   },

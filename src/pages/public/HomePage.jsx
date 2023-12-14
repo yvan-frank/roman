@@ -65,15 +65,10 @@ export default function HomePage() {
                     <h2 className=' font-bold md:text-2xl lg:text-3xl text-purple'>Populaires</h2>
                     <span className='text-sm md:text-base'>Tout voir</span>
                 </div>
-                <div className='flex flex-wrap mt-5'>
+                <div className='flex flex-wrap mt-5 md:bg-slate/20 p-1 md:p-5'>
                     {
                         results && results.map((book, i) => {
-                            return <BookItem keyY={i} book={book} />
-                        })
-                    }
-                    {
-                        results && results.map((book, i) => {
-                            return <BookItem keyY={i} book={book} />
+                            return <BookItem key={i} book={book} />
                         })
                     }
 
