@@ -11,8 +11,10 @@ export const googleLocalToken = localStorage.getItem('googleToken');
 //development
 //export const baseUrl = '/api'
 
+//export const baseUrl = 'http://localhost:8000/api'
+
 //production
-export const baseUrl = 'https://api.rabipeknovel.com/api'
+export const baseUrl = 'https://prod.rabipeknovel.com/api'
 
 //user endpoints
 const loginEndpoint = `${baseUrl}/login`

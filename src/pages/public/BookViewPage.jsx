@@ -17,6 +17,9 @@ import {Dialog, Transition} from "@headlessui/react";
 import {FaUserCircle} from "react-icons/fa";
 import useAuth from "../../hooks/useAuth.js";
 import axios from "axios";
+import {Cover} from "../../api/Images.js";
+import AgeComponent from "../../components/AgeComponent.jsx";
+import {CiCircleInfo} from "react-icons/ci";
 
 
 export default function BookViewPage() {
@@ -47,7 +50,7 @@ export default function BookViewPage() {
         const res = await fetchBookDetails({book_id: bookId});
         if (res) {
             setResults(res.data);
-            //console.log(res.author_detail[0])
+            console.log(res.book_detail[0])
             setBookDetails(res.book_detail[0])
             setAuthorBookList(res.author_book_list)
             setAuthorDetails(res.author_detail[0])
@@ -91,6 +94,7 @@ export default function BookViewPage() {
     const [isReview, setIsReview] = useState(false);
     const [comment, setComment] = useState('');
     const [message, setMessage] = useState('');
+    const [ageOpen, setAgeOpen] = useState(true);
 
     //add comment
     const AddComment = async () => {
@@ -107,7 +111,7 @@ export default function BookViewPage() {
                 navigate(loginLink)
             }else {
                 getData()
-                setMessage('Votre commentire a été bien enregisté')
+                setMessage('Votre commentaire a été bien enregisté')
                 setTimeout(() => {
                     setMessage('')
                     setIsReview(false)
@@ -121,14 +125,14 @@ export default function BookViewPage() {
        <Head
            title={bookDetails?.name ? bookDetails?.name + ' | Rabipek Novel' : 'Rabipek Novel'}
            description={bookDetails?.description.length > 150 ? bookDetails?.description.slice(0, 150) : bookDetails?.description}
-           image={bookDetails?.image}
+           image={bookDetails?.front_cover}
            url={window.location.href}
            keywords={`${bookDetails?.category_name}, ${bookDetails?.subcategory_name}, ${bookDetails?.name}`}
        />
        <MobileUser openNav={openNav} setOpenNav={() => setOpenNav(!openNav)} />
        <TopBar />
        <Header open={openNav} setOpen={setOpenNav} />
-
+        <AgeComponent />
        <div className='w-full bg-slate/5 p-3 px-5 lg:px-10 overflow-hidden'>
            <ul className='flex items-center text-sm overflow-x-auto'>
                <li className='px-2 hover:underline'><NavLink to={root}>Accueil</NavLink></li>
@@ -146,26 +150,37 @@ export default function BookViewPage() {
                </li>
            </ul>
        </div>
-     <div className='max-w-7xl mx-auto lg:p-2 px-4 overflow-hidden'>
+       <div className='max-w-7xl mx-auto lg:p-2 px-4 overflow-hidden'>
+           <div>
+               <p>Vous avez lu le livre {bookDetails?.name}</p>
+           </div>
         <div className='w-full block lg:flex mt-20'>
             <div className='lg:w-1/4 flex flex-col lg:mr-5'>
-                <LazyLoadImage
-                    placeholderSrc={placeHolderImage}
-                    src={bookDetails?.back_cover}
-                    className='w-full h-auto'
-                    placeholderClass='w-full h-auto'
-                />
+                {/*<LazyLoadImage*/}
+                {/*    placeholderSrc={placeHolderImage}*/}
+                {/*    src={bookDetails?.front_cover}*/}
+                {/*    className='w-full h-auto'*/}
+                {/*    placeholderClass='w-full h-auto'*/}
+                {/*/>*/}
+                <img src={bookDetails?.front_cover} className='rounded-2xl' alt=""/>
                 <a className='mt-5 p-2 border-2 rounded border-slate/20 text-center font-bold uppercase hover:bg-yellow
                 cursor-pointer duration-150 hover:text-white hover:border-yellow'>
-                    Lire l'extrait en ligne
+                    {
+                        bookDetails?.name === 'Mariée à un inconnu' ? 'Lire l\'extrait gratuitement' : 'Lire l\'extrait'
+                    }
                 </a>
             </div>
             <div className='lg:w-3/4 lg:ml-5 flex flex-col'>
                 {/* Book tilte */}
                 <div className='flex flex-col mb-14 mt-10 lg:mt-0'>
-                    <h1 className='font-bold text-2xl md:text-4xl'>{bookDetails?.name}</h1>
+                    <div className='flex justify-between items-center'>
+                        <h1 className='font-bold text-2xl md:text-4xl'>{bookDetails?.name}</h1>
+                        <p className='inline-flex items-center'>
+                            <p>+18 ans</p> <CiCircleInfo className='ml-2 text-xl text-purple'  />
+                        </p>
+                    </div>
                     <p className='md:text-lg text-sm'>de {' '}
-                        <button onClick={openModal} className='text-purple'>{bookDetails?.publisher}
+                        <button onClick={openModal} className='text-purple'>{bookDetails?.author_name}
                         </button> (Auteur)
                     </p>
                 </div>
@@ -234,15 +249,28 @@ export default function BookViewPage() {
                 </Transition>
                 {/* Buy */}
                 <div className='mb-20 flex items-center'>
-                    <button
-                        disabled={cartLoad}
-                        //to={cartLink}
-                        onClick={addToCart}
-                        className='py-4 px-8 duration-500 bg-yellow hover:bg-purple rounded text-white font-semibold text-sm
-                        md:text-base disabled:cursor-not-allowed'>
-                        Acheter pour {bookDetails?.price} FCFA
-                    </button>
-                    {cartLoad && <BiLoaderAlt size={30} className='animate-spin ml-2' />}
+
+                    {
+                        bookDetails?.name === 'Mariée à un inconnu' ?
+                            <a
+                                //disabled={cartLoad}
+                                //to={cartLink}
+                                //onClick={addToCart}
+                                href={bookDetails?.file_path}
+                                className='py-4 px-8 duration-500 bg-yellow hover:bg-purple rounded text-white font-semibold text-sm
+                                    md:text-base disabled:cursor-not-allowed'>
+                                Lire gratuitement
+                            </a> :
+                            <button
+                                disabled={cartLoad}
+                                //to={cartLink}
+                                onClick={addToCart}
+                                className='py-4 px-8 duration-500 bg-yellow hover:bg-purple rounded text-white font-semibold text-sm
+                                md:text-base disabled:cursor-not-allowed'>
+                                Acheter pour {bookDetails?.price} FCFA
+                            </button>
+                    }
+                    {cartLoad && <BiLoaderAlt size={30} className='animate-spin ml-2'/>}
                 </div>
                 {/* category */}
                 <div className='flex flex-wrap'>
@@ -405,7 +433,7 @@ export default function BookViewPage() {
         </div>
     </div>
        <div className={`${loading ? 'block': 'hidden'}`}>
-           <div className='fixed inset-0 flex items-center justify-center w-full'>
+           <div className='fixed inset-0 bg-white flex items-center justify-center w-full'>
                {loading && <Loading />}
 
            </div>

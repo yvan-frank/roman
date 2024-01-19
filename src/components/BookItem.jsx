@@ -5,6 +5,7 @@ import LazyLoadImage from "./LazyLoadImage.jsx";
 import {placeHolderImage} from "../api/index.js";
 import {BsArrowRight} from "react-icons/bs";
 import {FaLongArrowAltRight} from "react-icons/fa";
+import {Cover} from "../api/Images.js";
 
 
 
@@ -24,13 +25,14 @@ const BookItem = ({  book = []}) => {
 
     return (
         <>
-            <div className='md:w-2/5 flex flex-col justify-center lg:flex-row h-[28rem] lg:h-72 bg-white rounded md:p-2 lg:m-2'>
+            <div className='md:w-2/5 flex flex-col justify-center lg:flex-row h-[28rem] lg:h-72 bg-white rounded md:p-2 lg:m-2 m-2 p-2'>
                 <LazyLoadImage
                     placeholderSrc={placeHolderImage}
-                    src={book.back_cover}
+                    src={ book.front_cover}
                     className='w-44 h-auto border rounded mr-2'
                     placeholderClass='w-44  h-auto border rounded mr-2'
                 />
+
                 <div className='pt-5 flex flex-col md:justify-between'>
                     <div>
                         <h2 className="text-lg font-semibold mb-2 text-slate">
